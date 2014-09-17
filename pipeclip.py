@@ -21,6 +21,7 @@ def prepare_argparser():
   argparser.add_argument("-l","--matchLength",dest = "matchLength", type = int ,required = True, help = "shorted matched segment length")
   argparser.add_argument("-m","--mismatch",dest = "mismatch", type = int,required = True, help = "maximum mismatch number")
   argparser.add_argument("-c","--clipType",dest = "clipType", type = int,required = True, help = "CLIP type (0)HITS-CLIP; (1)PAR-4SU; (2)PAR-6SG; (3)iCLIP", choices=[0,1,2,3])
+  argparser.add_argument("-r","--pcr",dest = "pcr", type = int,required = True, help = "PCR removal (0)no removal; (1)same-start removal; (2)same-seq removal", choices=[0,1,2])
   argparser.add_argument("-M","--fdrMutation",dest = "fdrMutation", type = float,required = True, help = "FDR for reliable mutations")
   argparser.add_argument("-C","--fdrCluster",dest = "fdrCluster", type = float,required = True, help = "FDR for enriched clusters")
   #argparser.add_argument("-s","--species",dest = "species", type = str,required = True, help = "Species [\"mm10\",\"hg19\"]",choices=["mm10","hg19"])
@@ -79,8 +80,8 @@ def runPipeClip(infile,outputPrefix,matchLength,mismatch,pcr,fdrEnrichedCluster,
       outputPrefix+".mutation.reliable.bed",
       outputPrefix+".sorted.bam",
       outputPrefix+".sorted.bam.bai"]
-  for file in cleanupFiles:
-    os.remove(file)
+  #for file in cleanupFiles:
+  #  os.remove(file)
 
 if __name__=="__main__":
   arg_parser = prepare_argparser()
@@ -90,7 +91,7 @@ if __name__=="__main__":
   outputPrefix = args.outfile           # Output prefix
   matchLength = args.matchLength        # Shorted matched segment length
   mismatch = args.mismatch              # Maximum mismatch number
-  pcr = args.clipType                    # PCR removal: (0)no removal; (1)same-start removal; (2)same-seq removal  
+  pcr = args.pcr                        # PCR removal: (0)no removal; (1)same-start removal; (2)same-seq removal  
   fdrEnrichedCluster = args.fdrCluster  # FDR for enriched clusters
   clipType =args.clipType               # CLIP type (0)HITS-CLIP; (1)PAR-4SU; (2)PAR-6SG; (3)iCLIP
   fdrReliableMutation = args.fdrMutation# FDR for reliable mutations

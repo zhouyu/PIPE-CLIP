@@ -26,7 +26,7 @@ class getClusterRunner:
       if nbDic.has_key(r_key):
         bufr.append(nbDic[r_key])
         #print "\t".join(bufr)
-        self.producedFile.write("\t".join(bufr))
+        self.producedFile.write("\t".join(bufr)+"\n")
 
 def getClusterMain(infilePath,nbFilePath,producedFilePath):
   try:

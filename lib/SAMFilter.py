@@ -132,11 +132,11 @@ class SAMFILTERRunner:
       if i[0]=="NM":
         return (i[1])
 
-  def PCRdupRm(self,rlist,method):
-    if method == 1:
-      return [rmdup(rlist)]
-    elif method ==2:
-      return rmdup_seq(rlist)
+#  def PCRdupRm(self,rlist,method):
+#    if method == 1:
+#      return [rmdup(rlist)]
+#    elif method ==2:
+#      return rmdup_seq(rlist)
 
   def rmdup(self,duplist): #According to the same start
     mn = 0 #match number
@@ -231,7 +231,7 @@ class SAMFILTERRunner:
             outputfile.write(former)
             lenList.append(self.countMatchLength(former.cigar))
           else:#choose removal method
-            remain = PCRdupRm(reductantList,rm_loc)
+            remain = self.PCRdupRm(reductantList,rm_loc)
             for r in remain:
               lenList.append(self.countMatchLength(r.cigar))
               outputfile.write(r)
@@ -243,7 +243,7 @@ class SAMFILTERRunner:
             lenList.append(self.countMatchLength(item.cigar))
             outputfile.write(item)
           else:
-            remain = PCRdupRm(reductantList,rm_loc)
+            remain = self.PCRdupRm(reductantList,rm_loc)
             for r in remain:
               lenList.append(self.countMatchLength(r.cigar))
               outputfile.write(r)

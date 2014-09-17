@@ -25,7 +25,7 @@ class crossLinkingRunner:
     self.mutation_bed = mutation_bed
     self.producedFile = producedFile
 
-  def fisherTest(p):
+  def fisherTest(self, p):
     '''First p is cluster p, others are mutation p'''
     R = robject.r
     fps = []
@@ -57,11 +57,11 @@ class crossLinkingRunner:
           mutationLoc[name] = [item[8]]
           pvalues[name]=[float(item[6]),float(item[11])]
     #print "#chr\tstart\tstop\tname\treads_count\tstrand\t-log(p)\tmutation_in_cluster\tmutation_locations"
-    self.producedFile.write("#chr\tstart\tstop\tname\treads_count\tstrand\t-log(p)\tmutation_in_cluster\tmutation_locations")
+    self.producedFile.write("#chr\tstart\tstop\tname\treads_count\tstrand\t-log(p)\tmutation_in_cluster\tmutation_locations\n")
     for k in overlap.keys():
-      fisher_p = fisherTest(pvalues[k])
+      fisher_p = self.fisherTest(pvalues[k])
       #print "%s\t%f\t%s\t%s" % (k,fisher_p, ','.join(overlap[k]), ','.join(mutationLoc[k]))
-      self.producedFile.write("%s\t%f\t%s\t%s" % (k,fisher_p, ','.join(overlap[k]), ','.join(mutationLoc[k])))
+      self.producedFile.write("%s\t%f\t%s\t%s\n" % (k,fisher_p, ','.join(overlap[k]), ','.join(mutationLoc[k])))
     self.producedFile.close()
 
 def getCrossLinkingMain(cluster_bed_path,mutation_bed_path,producedFilePath):
